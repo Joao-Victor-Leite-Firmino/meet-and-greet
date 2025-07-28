@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const res = await fetch("/api/meetings");
         const meetings = await res.json();
 
-        // Atualiza a lista de reuniões
         meetingsList.innerHTML = "";
         meetings.forEach(meeting => {
             const button = document.createElement("button");
@@ -16,7 +15,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             meetingsList.appendChild(button);
         });
 
-        // Atualiza o calendário
         const events = meetings.map(m => ({
             title: `${m.consultant} com ${m.client}`,
             start: m.datetime
@@ -40,7 +38,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         `;
     }
 
-    // Adiciona o evento de submissão do formulário
     document.getElementById('meetingForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -57,8 +54,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         e.target.reset();
-        fetchMeetings(); // Atualiza a lista de reuniões após a submissão
+        fetchMeetings();
     });
 
-    fetchMeetings(); // Carrega as reuniões ao iniciar
+    fetchMeetings();
 });

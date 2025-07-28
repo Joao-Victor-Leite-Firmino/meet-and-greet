@@ -4,19 +4,15 @@ const app = express();
 const port = 3000;
 const path = require('path');
 const db = require('./db');
-const excel = require('exceljs'); // Para manipulação de Excel
+const excel = require('exceljs');
 
-// Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../frontend'))); // Serve arquivos estáticos
-
-// Rota para a página inicial
+app.use(express.static(path.join(__dirname, '../frontend')));
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/index.html')); // Certifique-se de que o caminho está correto
+    res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
-// Rota para obter reuniões
 app.get('/api/meetings', (req, res) => {
     db.all("SELECT * FROM meetings", (err, rows) => {
         if (err) return res.status(500).json({ error: err.message });
@@ -24,7 +20,6 @@ app.get('/api/meetings', (req, res) => {
     });
 });
 
-// Rota para adicionar uma nova reunião
 app.post('/api/meetings', (req, res) => {
     const { consultant, client, datetime } = req.body;
     db.run("INSERT INTO meetings (consultant, client, datetime) VALUES (?, ?, ?)",
@@ -35,7 +30,6 @@ app.post('/api/meetings', (req, res) => {
         });
 });
 
-// Rota para excluir uma reunião
 app.delete('/api/meetings/:id', (req, res) => {
     const { id } = req.params;
     db.run("DELETE FROM meetings WHERE id = ?", id, function(err) {
@@ -44,7 +38,6 @@ app.delete('/api/meetings/:id', (req, res) => {
     });
 });
 
-// Rota para obter propostas
 app.get('/api/proposals', (req, res) => {
     db.all("SELECT * FROM proposals", (err, rows) => {
         if (err) return res.status(500).json({ error: err.message });
@@ -52,7 +45,6 @@ app.get('/api/proposals', (req, res) => {
     });
 });
 
-// Rota para adicionar uma nova proposta
 app.post('/api/proposals', (req, res) => {
     const { consultant, client, description, amount } = req.body;
     db.run("INSERT INTO proposals (consultant, client, description, amount) VALUES (?, ?, ?, ?)",
@@ -63,7 +55,6 @@ app.post('/api/proposals', (req, res) => {
         });
 });
 
-// Rota para atualizar o status da proposta
 app.put('/api/proposals/:id/status', (req, res) => {
     const { status } = req.body;
     const { id } = req.params;
@@ -74,7 +65,6 @@ app.put('/api/proposals/:id/status', (req, res) => {
     });
 });
 
-// Rota para excluir uma proposta
 app.delete('/api/proposals/:id', (req, res) => {
     const { id } = req.params;
     db.run("DELETE FROM proposals WHERE id = ?", id, function(err) {
@@ -83,9 +73,8 @@ app.delete('/api/proposals/:id', (req, res) => {
     });
 });
 
-// Rota para baixar propostas em Excel filtradas por consultor
 app.get('/api/proposals/download', async (req, res) => {
-    const { consultant } = req.query; // Obtém o consultor da query string
+    const { consultant } = req.query;
     const workbook = new excel.Workbook();
     const worksheet = workbook.addWorksheet('Propostas');
 
@@ -112,7 +101,6 @@ app.get('/api/proposals/download', async (req, res) => {
     });
 });
 
-// Inicia o servidor
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
