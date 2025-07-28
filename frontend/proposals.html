@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Propostas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h3>Nova Proposta</h3>
+        <form id="proposalForm">
+            <input name="consultant" placeholder="Consultor" required />
+            <input name="client" placeholder="Cliente" required />
+            <input name="description" placeholder="Descrição" required />
+            <input name="amount" type="number" placeholder="Valor" required />
+            <button type="submit">Enviar</button>
+        </form>
+
+        <h1>Propostas Enviadas</h1>
+        <div id="proposalsList"></div>
+        <div id="proposalDetail"></div>
+
+        <h3>Baixar Propostas</h3>
+        <select id="consultantSelect">
+            <option value="">Selecione um Consultor</option>
+        </select>
+        <button id="downloadProposals">Baixar Propostas</button> 
+    </div>
+
+    <script src="proposals.js"></script>
+</body>
+</html>

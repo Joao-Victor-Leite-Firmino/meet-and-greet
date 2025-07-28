@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Reuniões</title>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Agenda de Reuniões</h1>
+        <div id="calendar"></div>
+
+        <h3>Nova Reunião</h3>
+        <form id="meetingForm">
+            <input name="consultant" placeholder="Consultor" required />
+            <input name="client" placeholder="Cliente" required />
+            <input name="datetime" type="datetime-local" required />
+            <button type="submit">Salvar</button>
+        </form>
+
+        <h1>Reuniões Agendadas</h1>
+        <div id="meetingsList"></div>
+
+        <div id="meetingDetail"></div> 
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
+    <script src="meetings.js"></script>
+</body>
+</html>
